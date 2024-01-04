@@ -1,6 +1,7 @@
-package com.example.workcalendar.user;
+package com.example.workcalendar.user.model;
 
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
 
@@ -11,20 +12,21 @@ import javax.persistence.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
-    private String surname;
+    String surname;
 
-    private String name;
+    String name;
 
     @Column(unique = true)
-    private String email;
+    String email;
 
-    private String position;
+    String position;
 
-    private String department;
+    String department;
 }

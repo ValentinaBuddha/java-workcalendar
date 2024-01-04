@@ -1,6 +1,7 @@
 package com.example.workcalendar.exception;
 
 public class ErrorResponse {
+
     private final String error;
 
     public ErrorResponse(String error) {

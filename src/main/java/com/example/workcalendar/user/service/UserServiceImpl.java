@@ -1,10 +1,11 @@
 package com.example.workcalendar.user.service;
 
 import com.example.workcalendar.exception.EntityNotFoundException;
-import com.example.workcalendar.user.User;
+import com.example.workcalendar.user.model.User;
 import com.example.workcalendar.user.dto.UserDto;
-import com.example.workcalendar.user.UserMapper;
-import com.example.workcalendar.user.UserRepository;
+import com.example.workcalendar.user.model.UserMapper;
+import com.example.workcalendar.user.repository.UserRepository;
+import com.example.workcalendar.user.dto.UserShortDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+
     private final UserRepository userRepository;
 
     @Override
@@ -28,7 +30,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto updateUser(long userId, UserDto userDto) {
+    public UserDto updateUser(Long userId, UserDto userDto) {
         log.info("Обновление существующего пользователя {} {}", userDto.getSurname(), userDto.getName());
         User oldUser = userRepository.findById(userId).orElseThrow(() ->
                 new EntityNotFoundException(String.format("Объект класса %s не найден", User.class)));
@@ -44,21 +46,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void deleteUser(long id) {
+    public void deleteUser(Long id) {
         log.info("Удаление пользователя по идентификатору {}", id);
         userRepository.deleteById(id);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<UserDto> getAllUsers() {
+    public List<UserShortDto> getAllUsers() {
         log.info("Получение всех пользователей");
-        return userRepository.findAll().stream().map(UserMapper::toUserDto).collect(Collectors.toList());
+        return userRepository.findAll().stream().map(UserMapper::toUserShortDto).collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public UserDto getUserById(long userId) {
+    public UserDto getUserById(Long userId) {
         log.info("Получение пользователя по идентификатору {}", userId);
         User user = userRepository.findById(userId).orElseThrow(() ->
                 new EntityNotFoundException(String.format("Объект класса %s не найден", User.class)));

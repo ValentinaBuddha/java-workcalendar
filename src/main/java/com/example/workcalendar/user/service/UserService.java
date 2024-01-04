@@ -1,6 +1,7 @@
 package com.example.workcalendar.user.service;
 
 import com.example.workcalendar.user.dto.UserDto;
+import com.example.workcalendar.user.dto.UserShortDto;
 
 import java.util.List;
 
@@ -8,11 +9,11 @@ public interface UserService {
 
     UserDto addUser(UserDto userDto);
 
-    UserDto updateUser(long userId, UserDto userDto);
+    UserDto updateUser(Long userId, UserDto userDto);
 
-    void deleteUser(long id);
+    void deleteUser(Long id);
 
-    List<UserDto> getAllUsers();
+    List<UserShortDto> getAllUsers();
 
-    UserDto getUserById(long userId);
+    UserDto getUserById(Long userId);
 }

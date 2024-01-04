@@ -1,10 +1,12 @@
-package com.example.workcalendar.user;
+package com.example.workcalendar.user.model;
 
 import com.example.workcalendar.user.dto.UserDto;
+import com.example.workcalendar.user.dto.UserShortDto;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class UserMapper {
+
     public UserDto toUserDto(User user) {
         return new UserDto(
                 user.getId(),
@@ -24,6 +26,13 @@ public class UserMapper {
                 userDto.getEmail(),
                 userDto.getPosition(),
                 userDto.getDepartment()
+        );
+    }
+
+    public UserShortDto toUserShortDto(User user) {
+        return new UserShortDto(
+                user.getId(),
+                user.getSurname() + " " + user.getName()
         );
     }
 }

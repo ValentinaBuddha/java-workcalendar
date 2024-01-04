@@ -18,24 +18,31 @@ import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(controllers = UserControllerAdmin.class)
 class UserControllerAdminTest {
 
     @MockBean
     private UserService userService;
-
     @Autowired
     private ObjectMapper mapper;
-
     @Autowired
     private MockMvc mvc;
 
-    private final UserDto userDto = new UserDto(1L, "Ivanov", "Ivan", "user@mail.ru",
-            "admin", "IT");
-    private final UserDto userNoEmail = new UserDto(1L, "Ivanov", "Ivan", "", "admin",
+    private final UserDto userDto = new UserDto(
+            1L,
+            "Ivanov",
+            "Ivan",
+            "user@mail.ru",
+            "admin",
+            "IT");
+    private final UserDto userNoEmail = new UserDto(
+            1L,
+            "Ivanov",
+            "Ivan",
+            "",
+            "admin",
             "IT");
 
     @Test
@@ -47,7 +54,7 @@ class UserControllerAdminTest {
                         .characterEncoding(StandardCharsets.UTF_8)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.id", is(userDto.getId()), Long.class))
                 .andExpect(jsonPath("$.name", is(userDto.getName()), String.class))
                 .andExpect(jsonPath("$.email", is(userDto.getEmail()), String.class));
@@ -65,7 +72,7 @@ class UserControllerAdminTest {
 
     @Test
     void updateUser() throws Exception {
-        when(userService.updateUser(anyInt(), any())).thenReturn(userDto);
+        when(userService.updateUser(anyLong(), any())).thenReturn(userDto);
 
         mvc.perform(patch("/admin/users/1", userDto.getId())
                         .content(mapper.writeValueAsString(userDto))
@@ -78,7 +85,7 @@ class UserControllerAdminTest {
     @Test
     void deleteUser() throws Exception {
         mvc.perform(delete("/admin/users/100"))
-                .andExpect(status().isOk());
+                .andExpect(status().isNoContent());
         Mockito.verify(userService, Mockito.times(1))
                 .deleteUser(anyLong());
     }

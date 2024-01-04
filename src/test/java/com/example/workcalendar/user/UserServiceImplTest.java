@@ -2,6 +2,10 @@ package com.example.workcalendar.user;
 
 import com.example.workcalendar.exception.EntityNotFoundException;
 import com.example.workcalendar.user.dto.UserDto;
+import com.example.workcalendar.user.dto.UserShortDto;
+import com.example.workcalendar.user.model.User;
+import com.example.workcalendar.user.model.UserMapper;
+import com.example.workcalendar.user.repository.UserRepository;
 import com.example.workcalendar.user.service.UserServiceImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -27,14 +31,24 @@ class UserServiceImplTest {
     @InjectMocks
     private UserServiceImpl userService;
 
-    private final long id = 1L;
-    private final UserDto userDto = new UserDto(id, "Ivanov", "Ivan", "user@mail.ru",
-            "admin", "IT");
-    private final User user = new User(id, "Ivanov", "Ivan", "user@mail.ru", "admin",
+    private final Long id = 1L;
+    private final UserDto userDto = new UserDto(
+            id,
+            "Ivanov",
+            "Ivan",
+            "user@mail.ru",
+            "admin",
+            "IT");
+    private final User user = new User(
+            id,
+            "Ivanov",
+            "Ivan",
+            "user@mail.ru",
+            "admin",
             "IT");
 
     @Test
-    void addUser_whenUserNameValid_thenSavedUser() {
+    void addUser_whenFieldsValid_thenSavedUser() {
         when(userRepository.save(any())).thenReturn(user);
 
         UserDto actualUser = userService.addUser(userDto);
@@ -79,7 +93,7 @@ class UserServiceImplTest {
     void getAllUsers() {
         when(userRepository.findAll()).thenReturn(List.of(user));
 
-        List<UserDto> targetUsers = userService.getAllUsers();
+        List<UserShortDto> targetUsers = userService.getAllUsers();
 
         Assertions.assertNotNull(targetUsers);
         Assertions.assertEquals(1, targetUsers.size());

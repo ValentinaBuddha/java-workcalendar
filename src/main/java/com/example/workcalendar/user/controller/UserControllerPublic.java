@@ -1,6 +1,7 @@
 package com.example.workcalendar.user.controller;
 
 import com.example.workcalendar.user.dto.UserDto;
+import com.example.workcalendar.user.dto.UserShortDto;
 import com.example.workcalendar.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,16 +17,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/users")
 public class UserControllerPublic {
+
     private final UserService userService;
 
     @GetMapping
-    public List<UserDto> getAllUsers() {
+    public List<UserShortDto> getAllUsers() {
         log.info("GET / users");
         return userService.getAllUsers();
     }
 
     @GetMapping("/{userId}")
-    public UserDto getUserById(@PathVariable long userId) {
+    public UserDto getUserById(@PathVariable Long userId) {
         log.info("GET / users / {}", userId);
         return userService.getUserById(userId);
     }

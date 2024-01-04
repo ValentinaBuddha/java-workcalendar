@@ -1,5 +1,7 @@
 package com.example.workcalendar.user;
 
+import com.example.workcalendar.user.model.User;
+import com.example.workcalendar.user.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -15,8 +17,14 @@ class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
-    private final User user = new User(null, "Ivanov", "Ivan", "user@mail.ru",
-            "admin", "IT");
+    private final User user = new User(
+            null,
+            "Ivanov",
+            "Ivan",
+            "user@mail.ru",
+            "admin",
+            "IT"
+    );
 
     @Test
     @DirtiesContext

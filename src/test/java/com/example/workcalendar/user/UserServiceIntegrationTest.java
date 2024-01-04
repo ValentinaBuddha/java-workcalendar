@@ -1,6 +1,7 @@
 package com.example.workcalendar.user;
 
 import com.example.workcalendar.user.dto.UserDto;
+import com.example.workcalendar.user.model.User;
 import com.example.workcalendar.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
@@ -26,8 +27,13 @@ public class UserServiceIntegrationTest {
     private final UserService userService;
 
     @Test
-    void saveNewUser() {
-        UserDto userDto = new UserDto(1L, "Ivanov", "Ivan", "user@mail.ru", "admin",
+    void addUser() {
+        UserDto userDto = new UserDto(
+                1L,
+                "Ivanov",
+                "Ivan",
+                "user@mail.ru",
+                "admin",
                 "IT");
 
         userService.addUser(userDto);

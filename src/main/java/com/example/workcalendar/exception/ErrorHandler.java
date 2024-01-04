@@ -14,7 +14,8 @@ import javax.validation.ConstraintViolationException;
 @RestControllerAdvice
 public class ErrorHandler {
 
-    @ExceptionHandler({MethodArgumentNotValidException.class, ConstraintViolationException.class})
+    @ExceptionHandler({MethodArgumentNotValidException.class, ConstraintViolationException.class,
+            WrongDatesException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse validateException(RuntimeException e) {
         log.info(e.getMessage());
@@ -28,9 +29,17 @@ public class ErrorHandler {
         return new ErrorResponse(e.getMessage());
     }
 
-    @ExceptionHandler
+    @ExceptionHandler({ParticipantIsInitiatorException.class, DataIntegrityViolationException.class,
+            RequestAlreadyExistsException.class})
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse userNotUniqueEmailException(DataIntegrityViolationException e) {
+    public ErrorResponse conflictException(RuntimeException e) {
+        log.info(e.getMessage());
+        return new ErrorResponse(e.getMessage());
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorResponse notInitiatorException(final NotInitiatorException e) {
         log.info(e.getMessage());
         return new ErrorResponse(e.getMessage());
     }
