@@ -19,14 +19,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Column(nullable = false)
     String surname;
 
+    @Column(nullable = false)
     String name;
 
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     String email;
 
+    @Column(nullable = false)
     String position;
 
+    @Column(nullable = false)
     String department;
 }

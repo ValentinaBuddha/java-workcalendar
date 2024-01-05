@@ -23,15 +23,15 @@ public class Request {
     Long id;
 
     @ManyToOne
-    @JoinColumn(name = "initiator_id")
+    @JoinColumn(name = "initiator_id", nullable = false)
     User initiator;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "event_id", nullable = false)
     Event event;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "participant_id")
+    @JoinColumn(name = "participant_id", nullable = false)
     User participant;
 
     @Enumerated(EnumType.STRING)

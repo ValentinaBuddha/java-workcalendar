@@ -115,7 +115,7 @@ class RequestServiceImplTest {
     }
 
     @Test
-    void cancelRequest_whenRequestNotFound_thenRequestNotCanceled() {
+    void cancelRequest_whenRequestNotFound_thenThrownException() {
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(initiator));
         when(requestRepository.findByIdAndInitiatorId(anyLong(), anyLong())).thenReturn(Optional.empty());
 
@@ -135,7 +135,7 @@ class RequestServiceImplTest {
     }
 
     @Test
-    void confirmRequest_whenRequestNotFound_thenRequestNotConfirmed() {
+    void confirmRequest_whenRequestNotFound_thenThrownException() {
         when(userRepository.findById(anyLong())).thenReturn(Optional.of(participant));
         when(requestRepository.findByIdAndParticipantId(anyLong(), anyLong())).thenReturn(Optional.empty());
 
