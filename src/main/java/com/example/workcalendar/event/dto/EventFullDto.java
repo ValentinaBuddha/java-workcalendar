@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
-import static com.example.workcalendar.utils.DateConstant.DATE_TIME_PATTERN;
+import static com.example.workcalendar.utils.DateConstant.DATE_PATTERN;
+import static com.example.workcalendar.utils.DateConstant.TIME_PATTERN;
 
 @Builder
 @Data
@@ -20,11 +22,14 @@ public class EventFullDto {
 
     String title;
 
-    @JsonFormat(pattern = DATE_TIME_PATTERN)
-    LocalDateTime start;
+    @JsonFormat(pattern = DATE_PATTERN)
+    LocalDate date;
 
-    @JsonFormat(pattern = DATE_TIME_PATTERN)
-    LocalDateTime end;
+    @JsonFormat(pattern = TIME_PATTERN)
+    LocalTime start;
+
+    @JsonFormat(pattern = TIME_PATTERN)
+    LocalTime end;
 
     String location;
 

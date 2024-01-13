@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class Day {
 
     @Id
-    @Column(nullable = false, columnDefinition = "TIMESTAMP")
+    @Column(nullable = false, columnDefinition = "DATE")
     LocalDate date;
 
     @Enumerated(EnumType.STRING)

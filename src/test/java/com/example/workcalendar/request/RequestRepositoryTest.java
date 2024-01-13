@@ -14,7 +14,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.DirtiesContext;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -44,11 +45,14 @@ class RequestRepositoryTest {
             "user2@mail.ru",
             "dev",
             "IT");
+    private final LocalDate date = LocalDate.of(2024, 12, 9);
+    private final LocalTime start = LocalTime.of(13, 0, 0);
     private final Event event = new Event(
             null,
             "consultation",
-            LocalDateTime.of(2024, 1, 25, 13, 0, 0),
-            LocalDateTime.of(2024, 1, 25, 14, 0, 0),
+            date,
+            start,
+            start.plusHours(1),
             "office 25",
             "consultation about Spring Framework",
             initiator);

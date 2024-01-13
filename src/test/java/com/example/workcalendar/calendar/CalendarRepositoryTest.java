@@ -24,7 +24,7 @@ class CalendarRepositoryTest {
     @Autowired
     private CalendarRepository calendarRepository;
 
-    private final LocalDate date = LocalDate.of(2024, 1, 9);
+    private final LocalDate date = LocalDate.of(2024, 12, 9);
     private final User user = new User(
             1L,
             "Ivanov",
@@ -42,8 +42,8 @@ class CalendarRepositoryTest {
 
     @Test
     void findWorkdaysInOneMonth() {
-        MonthWorkDays days = calendarRepository.findWorkdaysInOneMonth(1, 2024);
+        MonthWorkDays days = calendarRepository.findWorkdaysInOneMonth(12, 2024);
 
-        assertThat(days.getDays(), equalTo(17L));
+        assertThat(days.getDays(), equalTo(21L));
     }
 }

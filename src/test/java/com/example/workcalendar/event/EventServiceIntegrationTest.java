@@ -13,8 +13,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
-
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -40,10 +40,13 @@ public class EventServiceIntegrationTest {
                 "user@mail.ru",
                 "admin",
                 "IT");
+        LocalDate date = LocalDate.of(2024, 12, 9);
+        LocalTime start = LocalTime.of(13, 0, 0);
         NewEventDto newEventDto = new NewEventDto(
                 "consultation",
-                LocalDateTime.of(2024,1,25,13,0,0),
-                LocalDateTime.of(2024,1,25,14,0,0),
+                date,
+                start,
+                start.plusHours(1),
                 "office 25",
                 "consultation about Spring Framework");
 

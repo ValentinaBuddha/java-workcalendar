@@ -5,7 +5,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Builder
 @Entity
@@ -25,11 +26,14 @@ public class Event {
     @Column(nullable = false)
     String title;
 
-    @Column(name = "start_date", nullable = false, columnDefinition = "TIMESTAMP")
-    LocalDateTime start;
+    @Column(name = "date", nullable = false, columnDefinition = "DATE")
+    LocalDate date;
 
-    @Column(name = "end_date", nullable = false, columnDefinition = "TIMESTAMP")
-    LocalDateTime end;
+    @Column(name = "start_time", nullable = false, columnDefinition = "TIME")
+    LocalTime start;
+
+    @Column(name = "end_time", nullable = false, columnDefinition = "TIME")
+    LocalTime end;
 
     @JoinColumn(nullable = false)
     String location;

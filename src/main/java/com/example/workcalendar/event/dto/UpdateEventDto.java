@@ -7,12 +7,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
-import javax.validation.constraints.Future;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Size;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
-import static com.example.workcalendar.utils.DateConstant.DATE_TIME_PATTERN;
+import static com.example.workcalendar.utils.DateConstant.DATE_PATTERN;
+import static com.example.workcalendar.utils.DateConstant.TIME_PATTERN;
 
 @Data
 @AllArgsConstructor
@@ -23,12 +24,14 @@ public class UpdateEventDto {
     String title;
 
     @FutureOrPresent(groups = {Update.class})
-    @JsonFormat(pattern = DATE_TIME_PATTERN)
-    LocalDateTime start;
+    @JsonFormat(pattern = DATE_PATTERN)
+    LocalDate date;
 
-    @Future(groups = {Update.class})
-    @JsonFormat(pattern = DATE_TIME_PATTERN)
-    LocalDateTime end;
+    @JsonFormat(pattern = TIME_PATTERN)
+    LocalTime start;
+
+    @JsonFormat(pattern = TIME_PATTERN)
+    LocalTime end;
 
     @Size(max = 255, groups = {Update.class})
     String location;

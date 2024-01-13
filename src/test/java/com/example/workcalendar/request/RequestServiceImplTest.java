@@ -1,8 +1,8 @@
 package com.example.workcalendar.request;
 
+import com.example.workcalendar.event.dto.EventShortDto;
 import com.example.workcalendar.event.model.Event;
 import com.example.workcalendar.event.repository.EventRepository;
-import com.example.workcalendar.event.dto.EventShortDto;
 import com.example.workcalendar.exception.EntityNotFoundException;
 import com.example.workcalendar.exception.ParticipantIsInitiatorException;
 import com.example.workcalendar.exception.RequestAlreadyExistsException;
@@ -11,9 +11,9 @@ import com.example.workcalendar.request.model.Request;
 import com.example.workcalendar.request.model.RequestStatus;
 import com.example.workcalendar.request.repository.RequestRepository;
 import com.example.workcalendar.request.service.RequestServiceImpl;
+import com.example.workcalendar.user.dto.UserShortDto;
 import com.example.workcalendar.user.model.User;
 import com.example.workcalendar.user.repository.UserRepository;
-import com.example.workcalendar.user.dto.UserShortDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,15 +21,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.workcalendar.request.model.RequestStatus.CONFIRMED;
+import static com.example.workcalendar.request.model.RequestStatus.REJECTED;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
-
-import static com.example.workcalendar.request.model.RequestStatus.*;
 
 @ExtendWith(MockitoExtension.class)
 class RequestServiceImplTest {
@@ -59,16 +60,18 @@ class RequestServiceImplTest {
             "dev",
             "IT");
     private final UserShortDto userShortDto = new UserShortDto(2L, "Petrov Petr");
+    private final LocalDate date = LocalDate.of(2024, 12, 9);
+    private final LocalTime start = LocalTime.of(13, 0, 0);
     private final Event event = new Event(
             id,
             "consultation",
-            LocalDateTime.of(2024, 1, 25, 13, 0, 0),
-            LocalDateTime.of(2024, 1, 25, 14, 0, 0),
+            date,
+            start,
+            start.plusHours(1),
             "office 25",
             "consultation about Spring Framework",
             initiator);
-    private final EventShortDto eventShortDto = new EventShortDto(id, "consultation",
-            LocalDateTime.of(2024, 1, 25, 13, 0, 0));
+    private final EventShortDto eventShortDto = new EventShortDto(id, "consultation", start.atDate(date));
     private final Request request = new Request(id, initiator, event, participant, RequestStatus.PENDING);
     private final RequestDto requestDto = new RequestDto(id, userShortDto, eventShortDto, RequestStatus.PENDING);
 

@@ -40,7 +40,7 @@ class RequestControllerTest {
 
     private final UserShortDto participant = new UserShortDto(2L, "Petrov Kirill");
     private final EventShortDto event = new EventShortDto(1L, "consultation",
-            LocalDateTime.of(2024, 1, 25, 13, 0, 0));
+            LocalDateTime.of(2024, 12, 9, 13, 0, 0));
     private final RequestDto requestDto = new RequestDto(1L, participant, event, RequestStatus.PENDING);
 
     @Test
@@ -63,7 +63,7 @@ class RequestControllerTest {
                         .characterEncoding(StandardCharsets.UTF_8)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isInternalServerError());
+                .andExpect(status().isBadRequest());
     }
 
     @Test

@@ -10,9 +10,9 @@ import com.example.workcalendar.event.repository.EventRepository;
 import com.example.workcalendar.event.service.EventServiceImpl;
 import com.example.workcalendar.exception.EntityNotFoundException;
 import com.example.workcalendar.exception.WrongDatesException;
+import com.example.workcalendar.user.dto.UserShortDto;
 import com.example.workcalendar.user.model.User;
 import com.example.workcalendar.user.repository.UserRepository;
-import com.example.workcalendar.user.dto.UserShortDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,13 +21,13 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.dao.DataIntegrityViolationException;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 class EventServiceImplTest {
@@ -40,7 +40,8 @@ class EventServiceImplTest {
     private EventServiceImpl eventService;
 
     private final Long id = 1L;
-    private final LocalDateTime start = LocalDateTime.of(2024, 1, 25, 13, 0, 0);
+    private final LocalDate date = LocalDate.of(2024, 12, 9);
+    private final LocalTime start = LocalTime.of(13, 0, 0);
     private final User user = new User(
             id,
             "Ivanov",
@@ -52,6 +53,7 @@ class EventServiceImplTest {
     private final Event event = new Event(
             id,
             "consultation",
+            date,
             start,
             start.plusHours(1),
             "office 25",
@@ -59,6 +61,7 @@ class EventServiceImplTest {
             user);
     private final NewEventDto newEventDto = new NewEventDto(
             "consultation",
+            date,
             start,
             start.plusHours(1),
             "office 25",
@@ -68,15 +71,18 @@ class EventServiceImplTest {
             null,
             null,
             null,
+            null,
             null);
     private final NewEventDto newEventDtoNoName = new NewEventDto(
             "",
+            date,
             start,
             start.plusHours(1),
             "office 25",
             "consultation about Spring Framework");
     private final NewEventDto newEventDtoWrongDates = new NewEventDto(
             "consultation",
+            date,
             start,
             start.minusHours(1),
             "office 25",
@@ -84,6 +90,7 @@ class EventServiceImplTest {
     private final EventFullDto eventFullDto = new EventFullDto(
             id,
             "consultation",
+            date,
             start,
             start.plusHours(1),
             "office 25",

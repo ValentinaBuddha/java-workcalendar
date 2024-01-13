@@ -12,6 +12,7 @@ public class EventMapper {
     public Event toEvent(NewEventDto newEventDto) {
         return Event.builder()
                 .title(newEventDto.getTitle())
+                .date(newEventDto.getDate())
                 .start(newEventDto.getStart())
                 .end(newEventDto.getEnd())
                 .location(newEventDto.getLocation())
@@ -23,6 +24,7 @@ public class EventMapper {
         return EventFullDto.builder()
                 .id(event.getId())
                 .title(event.getTitle())
+                .date(event.getDate())
                 .start(event.getStart())
                 .end(event.getEnd())
                 .location(event.getLocation())
@@ -35,7 +37,7 @@ public class EventMapper {
         return EventShortDto.builder()
                 .id(event.getId())
                 .title(event.getTitle())
-                .start(event.getStart())
+                .start(event.getStart().atDate(event.getDate()))
                 .build();
     }
 }

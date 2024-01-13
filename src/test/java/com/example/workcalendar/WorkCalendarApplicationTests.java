@@ -9,5 +9,4 @@ class WorkCalendarApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

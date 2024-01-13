@@ -8,9 +8,11 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
-import static com.example.workcalendar.utils.DateConstant.DATE_TIME_PATTERN;
+import static com.example.workcalendar.utils.DateConstant.DATE_PATTERN;
+import static com.example.workcalendar.utils.DateConstant.TIME_PATTERN;
 
 @Data
 @AllArgsConstructor
@@ -23,13 +25,16 @@ public class NewEventDto {
 
     @NotNull(groups = {Create.class})
     @FutureOrPresent(groups = {Create.class})
-    @JsonFormat(pattern = DATE_TIME_PATTERN)
-    LocalDateTime start;
+    @JsonFormat(pattern = DATE_PATTERN)
+    LocalDate date;
 
     @NotNull(groups = {Create.class})
-    @Future(groups = {Create.class})
-    @JsonFormat(pattern = DATE_TIME_PATTERN)
-    LocalDateTime end;
+    @JsonFormat(pattern = TIME_PATTERN)
+    LocalTime start;
+
+    @NotNull(groups = {Create.class})
+    @JsonFormat(pattern = TIME_PATTERN)
+    LocalTime end;
 
     @NotBlank(groups = {Create.class})
     @Size(max = 255, groups = {Create.class})

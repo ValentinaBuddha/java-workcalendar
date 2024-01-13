@@ -1,11 +1,11 @@
 package com.example.workcalendar.event.service;
 
-import com.example.workcalendar.event.model.Event;
-import com.example.workcalendar.event.model.EventMapper;
 import com.example.workcalendar.event.dto.EventFullDto;
 import com.example.workcalendar.event.dto.EventShortDto;
 import com.example.workcalendar.event.dto.NewEventDto;
 import com.example.workcalendar.event.dto.UpdateEventDto;
+import com.example.workcalendar.event.model.Event;
+import com.example.workcalendar.event.model.EventMapper;
 import com.example.workcalendar.event.repository.EventRepository;
 import com.example.workcalendar.exception.EntityNotFoundException;
 import com.example.workcalendar.exception.NotInitiatorException;
@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,8 +36,8 @@ public class EventServiceImpl implements EventService {
     public EventFullDto addEvent(Long userId, NewEventDto newEventDto) {
         log.info("Создание нового события {}", newEventDto.getTitle());
         if (!newEventDto.getEnd().isAfter(newEventDto.getStart()) ||
-                newEventDto.getStart().isBefore(LocalDateTime.now())) {
-            throw new WrongDatesException("Время начала события должно быть раньше времени конца события");
+                newEventDto.getStart().atDate(newEventDto.getDate()).isBefore(LocalDateTime.now())) {
+            throw new WrongDatesException("Время начала события должно быть раньше времени конца события.");
         }
         Event event = eventRepository.save(EventMapper.toEvent(newEventDto));
         event.setInitiator(getUser(userId));
@@ -52,11 +53,11 @@ public class EventServiceImpl implements EventService {
         if (title != null && !title.isBlank()) {
             event.setTitle(title);
         }
-        LocalDateTime start = updateEventDto.getStart();
+        LocalTime start = updateEventDto.getStart();
         if (start != null) {
             event.setStart(start);
         }
-        LocalDateTime end = updateEventDto.getEnd();
+        LocalTime end = updateEventDto.getEnd();
         if (end != null) {
             event.setEnd(end);
         }
