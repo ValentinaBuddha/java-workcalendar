@@ -29,7 +29,7 @@ _В рамках тестового задания реализовано при
 2. Административная (доступна только для администраторов сервиса)
 * API для работы с пользователями
 
-## [Postman тесты:](https://github.com/ValentinaBuddha/java-workcalendar/blob/main/postman/workcalendar.postman_collection.json)  
+## [Postman тесты](https://github.com/ValentinaBuddha/java-workcalendar/blob/main/postman/workcalendar.postman_collection.json)  
 
 ## Модель базы данных
 
